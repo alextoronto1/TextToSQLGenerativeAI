@@ -1,0 +1,22 @@
+-- SQLite
+INSERT INTO STUDENT (NAME, CLASS, SECTION, MARKS) VALUES
+    ('Carlos', 'Computer Science', 'A', 100),
+    ('Emily', 'Mathematics', 'B', 95),
+    ('James', 'Physics', 'C', 85),
+    ('Sophia', 'Chemistry', 'A', 90),
+    ('Michael', 'Biology', 'B', 88),
+    ('Emma', 'History', 'C', 92),
+    ('William', 'Geography', 'A', 87),
+    ('Olivia', 'English', 'B', 96),
+    ('Alexander', 'Art', 'C', 89),
+    ('Ava', 'Music', 'A', 94),
+    ('Benjamin', 'Drama', 'B', 91),
+    ('Isabella', 'Economics', 'C', 93),
+    ('Mason', 'Political Science', 'A', 82),
+    ('Mia', 'Sociology', 'B', 97),
+    ('Elijah', 'Psychology', 'C', 86),
+    ('Charlotte', 'Anthropology', 'A', 98),
+    ('Liam', 'Philosophy', 'B', 83),
+    ('Aiden', 'Statistics', 'C', 89),
+    ('Evelyn', 'Literature', 'A', 95),
+    ('Harper', 'Religion', 'B', 90);
