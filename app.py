@@ -1,3 +1,5 @@
+## Application
+
 from dotenv import load_dotenv
 load_dotenv() ## load all the environemnt variables
 
@@ -6,6 +8,7 @@ import os
 import sqlite3
 
 import google.generativeai as genai
+
 ## Configure Genai Key
 
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
