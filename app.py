@@ -1,40 +1,26 @@
-## Application
+# Install the pre-built tokenizers package
+!pip install tokenizers==0.10.3
 
+# Import necessary libraries
 from dotenv import load_dotenv
-load_dotenv() ## load all the environemnt variables
+load_dotenv()  # Load all the environment variables
 
 import streamlit as st
 import os
 import sqlite3
 
-import google.generativeai as genai
+from transformers import pipeline  # Import pipeline from transformers package
 
-## Configure Genai Key
+# Load the ChatGPT pipeline
+chatgpt = pipeline("text-generation", model="EleutherAI/gpt-neo-2.7B")
 
-genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
+# Define a function to generate responses
+def generate_response(input_text, max_length=100):
+    response = chatgpt(input_text, max_length=max_length)[0]['generated_text']
+    return response
 
-## Function To Load Google Gemini Model and provide queries as response
-
-def get_gemini_response(question,prompt):
-    model=genai.GenerativeModel('gemini-pro')
-    response=model.generate_content([prompt[0],question])
-    return response.text
-
-## Fucntion To retrieve query from the database
-
-def read_sql_query(sql,db):
-    conn=sqlite3.connect(db)
-    cur=conn.cursor()
-    cur.execute(sql)
-    rows=cur.fetchall()
-    conn.commit()
-    conn.close()
-    for row in rows:
-        print(row)
-    return rows
-
-## Define Your Prompt
-prompt=[
+# Define Your Prompt
+prompt = [
     """
     You are an expert in converting English questions to SQL query!
     The SQL database has the name STUDENT and has the following columns - NAME, CLASS, 
@@ -44,36 +30,18 @@ prompt=[
     the SQL command will be something like this SELECT * FROM STUDENT 
     where CLASS="Data Science"; 
     also the sql code should not have ``` in beginning or end and sql word in output
-
     """
-
-
 ]
 
-## Streamlit App
-
+# Streamlit App
 st.set_page_config(page_title="I can Retrieve Any SQL query")
-st.header("Gemini App To Retrieve SQL Data")
+st.header("ChatGPT App To Retrieve SQL Data")
 
-question=st.text_input("Input: ",key="input")
+question = st.text_input("Input: ", key="input")
+submit = st.button("Ask the question")
 
-submit=st.button("Ask the question")
-
-# if submit is clicked
+# If submit is clicked
 if submit:
-    response=get_gemini_response(question,prompt)
-    print(response)
-    response=read_sql_query(response,"student.db")
-    st.subheader("The REsponse is")
-    for row in response:
-        print(row)
-        st.header(row)
-
-
-
-
-
-
-
-
-
+    response = generate_response(question)
+    st.subheader("The Response is")
+    st.write(response)

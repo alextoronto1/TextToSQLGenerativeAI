@@ -1,4 +1,6 @@
 streamlit
-google-generativeai
+transformers==4.11.3
 python-dotenv
-Visual Studio Code
+tokenizers==0.10.1
+pip==24.0
+openai
